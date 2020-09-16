@@ -22,19 +22,20 @@ class ForceConstants:
     Parameters
     ----------
 
-    atoms: Tabulated xyz files or ASE Atoms object
-        The atoms to work on.
-    supercell: (3) tuple, optional
+    atoms: Atoms object
+         The atoms to work on. Can be input as a tabulated xyz file or
+         ASE atoms object.
+    supercell: 3-tuple, optional
         Size of supercell given by the number of repetitions (l, m, n) of
         the small unit cell in each direction.
         Defaults to (1, 1, 1)
-    third_supercell: tuple, optional
-        Same as supercell, but for the third order force constant matrix.
-        If not provided, it's copied from supercell.
-        Defaults to `self.supercell`
+    third_supercell: 3-tuple, optional
+        Size of supercell given by number of repetitions (l, m, n) for the third
+        order force constant matrix. If not provided, it's copied from supercell
+        . Defaults to `self.supercell`
     folder: str, optional
         Name to be used for the displacement information folder.
-        Defaults to 'displacement'
+        *Defaults to 'displacement'*
     distance_threshold: float, optional
         If the distance between two atoms exceeds threshold, the interatomic
         force is ignored.
@@ -84,20 +85,21 @@ class ForceConstants:
     	----------
         folder : str
     		Chosen folder to load in system information.
-        supercell : (int, int, int), optional
+        supercell : 3 tuple, optional
     		Number of unit cells in each cartesian direction replicated to form the input structure.
     		Default is (1, 1, 1)
-        format : 'numpy', 'eskm', 'lammps', 'shengbte', 'shengbte-qe', 'hiphive'
+        format : string
     		Format of force constant information being loaded into ForceConstants object.
-    		Default is 'numpy'
+            Options are 'numpy', 'eskm', 'lammps', 'shengbte', 'shengbte-qe',
+            or 'hiphive'. Default is 'numpy'
         third_energy_threshold : float, optional
     		When importing sparse third order force constant matrices, energies below
-    		the threshold value in magnitude are ignored. Units: ev/A^3
-            	Default is `None`
+    		the threshold value in magnitude are ignored. Units: ev/A^3.
+            Default is `None`
         distance_threshold : float, optional
-    		When calculating force constants, contributions from atoms further than the
-		    distance threshold will be ignored.
-        third_supercell : (int, int, int), optional
+    		When calculating force constants, contributions from atoms further
+            than the distance threshold will be ignored.
+        third_supercell : 3-tuple, optional
     		Takes in the unit cell for the third order force constant matrix.
     		Default is self.supercell
         is_acoustic_sum : Bool, optional

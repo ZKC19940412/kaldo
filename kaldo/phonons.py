@@ -28,14 +28,14 @@ class Phonons:
 
     Parameters
     ----------
-    forceconstants : ForceConstants
-        contains all the information about the system and the derivatives
+    forceconstants : $\kappa$ALDo ForceConstants Object
+        Contains all the information about the system and the derivatives
         of the potential.
     is_classic : bool
-        specifies if the system is classic, `True` or quantum, `False`
+        Specifies if the system is classic, `True` or quantum, `False`
         Default is `False`
-    kpts : (3) tuple, optional
-        defines the number of k points to use to create the k mesh
+    kpts : 3-tuple, optional
+        Defines the number of k points to use to create the k mesh
         Default is (1, 1, 1)
     temperature : float
         defines the temperature of the simulation. Units: K.
@@ -57,14 +57,14 @@ class Phonons:
         Default is `gauss`.
     folder : string, optional
         Specifies where to store the data files. Default is `output`.
-    storage : `default`, `formatted`, `numpy`, `memory`, `hdf5`, optional
-        Defines the storing strategy used to store the observables. The
-        `default` strategy stores formatted output and numpy arrays.
-        `memory` storage doesn't generate any output.
-    grid_type : 'F' or 'C, optional
-        Specify if to use 'C" style atoms replica grid of fortran
-        style 'F',
-        Default 'C'
+    storage : sting, optional
+        Defines the storing strategy used to store the observables. Options are
+        `default`, `formatted`, `numpy`, `memory`, and `hdf5`.
+        The `memory` selection doesn't generate any output in the file system.
+        Default is `numpy`
+    grid_type : string, optional
+        Specify if to use 'C' style atoms replica grid or fortran
+        style 'F'. Options are 'C' and 'F' Default is 'C'
 
     Returns
     -------
