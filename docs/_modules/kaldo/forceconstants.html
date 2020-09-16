@@ -410,18 +410,18 @@
 <span class="sd">    supercell: 3-tuple, optional</span>
 <span class="sd">        Size of supercell given by the number of repetitions (l, m, n) of</span>
 <span class="sd">        the small unit cell in each direction.</span>
-<span class="sd">        Defaults to (1, 1, 1)</span>
+<span class="sd">        Default: (1, 1, 1)</span>
 <span class="sd">    third_supercell: 3-tuple, optional</span>
 <span class="sd">        Size of supercell given by number of repetitions (l, m, n) for the third</span>
 <span class="sd">        order force constant matrix. If not provided, it's copied from supercell</span>
-<span class="sd">        . Defaults to `self.supercell`</span>
+<span class="sd">        . Default: `self.supercell`</span>
 <span class="sd">    folder: str, optional</span>
 <span class="sd">        Name to be used for the displacement information folder.</span>
 <span class="sd">        *Defaults to 'displacement'*</span>
 <span class="sd">    distance_threshold: float, optional</span>
 <span class="sd">        If the distance between two atoms exceeds threshold, the interatomic</span>
 <span class="sd">        force is ignored.</span>
-<span class="sd">        Defaults to `None`</span>
+<span class="sd">        Default: `None`</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -469,24 +469,24 @@
 <span class="sd">    		Chosen folder to load in system information.</span>
 <span class="sd">        supercell : 3 tuple, optional</span>
 <span class="sd">    		Number of unit cells in each cartesian direction replicated to form the input structure.</span>
-<span class="sd">    		Default is (1, 1, 1)</span>
+<span class="sd">    		Default: (1, 1, 1)</span>
 <span class="sd">        format : string</span>
 <span class="sd">    		Format of force constant information being loaded into ForceConstants object.</span>
 <span class="sd">            Options are 'numpy', 'eskm', 'lammps', 'shengbte', 'shengbte-qe',</span>
-<span class="sd">            or 'hiphive'. Default is 'numpy'</span>
+<span class="sd">            or 'hiphive'. Default: 'numpy'</span>
 <span class="sd">        third_energy_threshold : float, optional</span>
 <span class="sd">    		When importing sparse third order force constant matrices, energies below</span>
 <span class="sd">    		the threshold value in magnitude are ignored. Units: ev/A^3.</span>
-<span class="sd">            Default is `None`</span>
+<span class="sd">            Default: `None`</span>
 <span class="sd">        distance_threshold : float, optional</span>
 <span class="sd">    		When calculating force constants, contributions from atoms further</span>
 <span class="sd">            than the distance threshold will be ignored.</span>
 <span class="sd">        third_supercell : 3-tuple, optional</span>
 <span class="sd">    		Takes in the unit cell for the third order force constant matrix.</span>
-<span class="sd">    		Default is self.supercell</span>
+<span class="sd">    		Default: self.supercell</span>
 <span class="sd">        is_acoustic_sum : Bool, optional</span>
 <span class="sd">    		If true, the accoustic sum rule is applied to the dynamical matrix.</span>
-<span class="sd">    		Default is False</span>
+<span class="sd">    		Default: False</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">    	-------</span>
@@ -536,11 +536,11 @@
 
 <span class="sd">        reduced_third : array, optional</span>
 <span class="sd">            The third order force constant matrix.</span>
-<span class="sd">            Default is `self.third_order`</span>
+<span class="sd">            Default: `self.third_order`</span>
 <span class="sd">        distance_threshold : float, optional</span>
 <span class="sd">            When calculating force constants, contributions from atoms further than</span>
 <span class="sd">            the distance threshold will be ignored.</span>
-<span class="sd">            Default is self.distance_threshold</span>
+<span class="sd">            Default: self.distance_threshold</span>
 <span class="sd">        """</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Unfolding third order matrix'</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">distance_threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

@@ -423,32 +423,31 @@ ForceConstant object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>forceconstants</strong> (<em>$kappa$ALDo ForceConstants Object</em>) – Contains all the information about the system and the derivatives
+<li><p><strong>forceconstants</strong> (<em>ForceConstants Object</em>) – Contains all the information about the system and the derivatives
 of the potential.</p></li>
-<li><p><strong>is_classic</strong> (<em>bool</em>) – Specifies if the system is classic, <span class="math">True</span> or quantum, <span class="math">False</span>
-Default is <span class="math">False</span></p></li>
-<li><p><strong>kpts</strong> (<em>3-tuple</em><em>, </em><em>optional</em>) – Defines the number of k points to use to create the k mesh
-Default is (1, 1, 1)</p></li>
 <li><p><strong>temperature</strong> (<em>float</em>) – defines the temperature of the simulation. Units: K.</p></li>
-<li><p><strong>min_frequency</strong> (<em>float</em><em>, </em><em>optional</em>) – ignores all phonons with frequency below <span class="math">min_frequency</span> THz,
-Default is <span class="math">None</span></p></li>
-<li><p><strong>max_frequency</strong> (<em>float</em><em>, </em><em>optional</em>) – ignores all phonons with frequency above <span class="math">max_frequency</span> THz
-Default is <span class="math">None</span></p></li>
+<li><p><strong>is_classic</strong> (<em>bool</em>) – Specifies if the system is classic, <img alt="True" class="math" src="../_images/math/629b47d70c41a9a2883e4821b0d333720f16673f.png"/> or quantum, <img alt="False" class="math" src="../_images/math/7492b7ed43697b62f89bfbfdd66b552e2ec5e7d1.png"/></p></li>
+<li><p><strong>kpts</strong> (<em>3-tuple</em><em>, </em><em>optional</em>) – Defines the number of k points to use to create the k mesh
+Default: (1, 1, 1)</p></li>
+<li><p><strong>min_frequency</strong> (<em>float</em><em>, </em><em>optional</em>) – ignores all phonons with frequency below <img alt="min_frequency" class="math" src="../_images/math/bf23891d61557219ba636b6720cd4223a7a26858.png"/> THz,
+Default: <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/></p></li>
+<li><p><strong>max_frequency</strong> (<em>float</em><em>, </em><em>optional</em>) – ignores all phonons with frequency above <img alt="max_frequency" class="math" src="../_images/math/e269bbcc3b06d014e54b6209ea903384b5eb0897.png"/> THz
+Default: <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/></p></li>
 <li><p><strong>third_bandwidth</strong> (<em>float</em><em>, </em><em>optional</em>) – Defines the width of the energy conservation smearing in the phonons
-scattering calculation. If <span class="math">None</span> the width is calculated
+scattering calculation. If <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/> the width is calculated
 dynamically. Otherwise the input value corresponds to the width.
 Units: THz.</p></li>
 <li><p><strong>broadening_shape</strong> (<em>string</em><em>, </em><em>optional</em>) – Defines the algorithm to use for the broadening of the conservation
 of the energy for third irder interactions. Available broadenings
-are <span class="math">gauss</span>, <span class="math">lorentz</span> and <span class="math">triangle</span>.
-Default is <span class="math">gauss</span>.</p></li>
-<li><p><strong>folder</strong> (<em>string</em><em>, </em><em>optional</em>) – Specifies where to store the data files. Default is <span class="math">output</span>.</p></li>
+are <img alt="gauss" class="math" src="../_images/math/2059dd30c330e08ced22748f70360a59603b6252.png"/>, <img alt="lorentz" class="math" src="../_images/math/0ecd3a42fba2ac4f9fc492ba29a99a8a670a5f8e.png"/> and <img alt="triangle" class="math" src="../_images/math/34b7c8af4374add3e6f9fb880161480a6ac7ea40.png"/>.
+Default: <img alt="gauss" class="math" src="../_images/math/2059dd30c330e08ced22748f70360a59603b6252.png"/>.</p></li>
+<li><p><strong>folder</strong> (<em>string</em><em>, </em><em>optional</em>) – Specifies where to store the data files. Default: <img alt="output" class="math" src="../_images/math/6f5e880e661425b8c2cc343cf4c3e1b55654e810.png"/>.</p></li>
 <li><p><strong>storage</strong> (<em>sting</em><em>, </em><em>optional</em>) – Defines the storing strategy used to store the observables. Options are
-<span class="math">default</span>, <span class="math">formatted</span>, <span class="math">numpy</span>, <span class="math">memory</span>, and <span class="math">hdf5</span>.
-The <span class="math">memory</span> selection doesn’t generate any output in the file system.
-Default is <span class="math">numpy</span></p></li>
+<img alt="default" class="math" src="../_images/math/87c7fe6e0268bfac88f4292dbe657742137b6201.png"/>, <img alt="formatted" class="math" src="../_images/math/ce7075e3e5655ca06a8192bc6a440969509266d2.png"/>, <img alt="numpy" class="math" src="../_images/math/aaedfd9573d304e4ff29db8875c79a2fd8739c99.png"/>, <img alt="memory" class="math" src="../_images/math/4b67ee5a160b1dbd47ca4fc555268878cd573e28.png"/>, and <img alt="hdf5" class="math" src="../_images/math/e3c8c90ec5439ab0f021b8e486a1117a86a57440.png"/>.
+The <img alt="memory" class="math" src="../_images/math/4b67ee5a160b1dbd47ca4fc555268878cd573e28.png"/> selection doesn’t generate any output in the file system.
+Default: <img alt="numpy" class="math" src="../_images/math/aaedfd9573d304e4ff29db8875c79a2fd8739c99.png"/></p></li>
 <li><p><strong>grid_type</strong> (<em>string</em><em>, </em><em>optional</em>) – Specify if to use ‘C’ style atoms replica grid or fortran
-style ‘F’. Options are ‘C’ and ‘F’ Default is ‘C’</p></li>
+style ‘F’. Options are ‘C’ and ‘F’ Default: ‘C’</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -465,7 +464,7 @@ style ‘F’. Options are ‘C’ and ‘F’ Default is ‘C’</p></li>
 </dd>
 <dt><a class="reference internal" href="#kaldo.phonons.Phonons.eigenvectors" title="kaldo.phonons.Phonons.eigenvectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigenvectors</span></code></a></dt><dd><p>Calculates the eigenvectors of the dynamical matrix.</p>
 </dd>
-<dt><a class="reference internal" href="#kaldo.phonons.Phonons.frequency" title="kaldo.phonons.Phonons.frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frequency</span></code></a></dt><dd><p>Calculate phonons frequency</p>
+<dt><a class="reference internal" href="#kaldo.phonons.Phonons.frequency" title="kaldo.phonons.Phonons.frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frequency</span></code></a></dt><dd><p>Calculate the phonons’ frequencies.</p>
 </dd>
 <dt><a class="reference internal" href="#kaldo.phonons.Phonons.heat_capacity" title="kaldo.phonons.Phonons.heat_capacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">heat_capacity</span></code></a></dt><dd><p>Calculate the heat capacity for each k point in k_points and each mode.</p>
 </dd>
@@ -488,10 +487,10 @@ style ‘F’. Options are ‘C’ and ‘F’ Default is ‘C’</p></li>
 <dd><p>Calculate the phonons bandwidth, the inverse of the lifetime, for each k point in k_points and each mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>bandwidth</strong> – bandwidth for each k point and each mode</p>
+<dd class="field-odd"><p><strong>bandwidth</strong> – (n_k_points, n_modes) Bandwidth for each k point and each mode</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.array(n_k_points, n_modes)</p>
+<dd class="field-even"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -524,9 +523,15 @@ style ‘F’. Options are ‘C’ and ‘F’ Default is ‘C’</p></li>
 <dl class="py method">
 <dt id="kaldo.phonons.Phonons.frequency">
 <em class="property">property </em><code class="sig-name descname">frequency</code><a class="headerlink" href="#kaldo.phonons.Phonons.frequency" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate phonons frequency
-:returns: <strong>frequency</strong> – (n_k_points, n_modes) frequency in THz
-:rtype: np array</p>
+<dd><p>Calculate the phonons’ frequencies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>frequency</strong> – (n_k_points, n_modes) frequency in THz</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np array</p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py method">
 <dt id="kaldo.phonons.Phonons.heat_capacity">
@@ -538,13 +543,13 @@ Bose-Einstein weighted by each phonons energy.
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c_</span>\<span class="n">mu</span> <span class="o">=</span> <span class="n">k_B</span> \<span class="n">frac</span><span class="p">{</span>\<span class="n">nu_</span>\<span class="n">mu</span><span class="o">^</span><span class="mi">2</span><span class="p">}{</span> \<span class="n">tilde</span> <span class="n">T</span><span class="o">^</span><span class="mi">2</span><span class="p">}</span> <span class="n">n_</span>\<span class="n">mu</span> <span class="p">(</span><span class="n">n_</span>\<span class="n">mu</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>where the frequency <span class="math">\nu</span> and the temperature <span class="math">\tilde T</span> are in THz.</p>
+<p>where the frequency <img alt="\nu" class="math" src="../_images/math/e382c4cba8e7739dc93434175665a506086e747d.png"/> and the temperature <img alt="\tilde T" class="math" src="../_images/math/a1973297dcd8ed1a36edc696aef0e150cf6bf502.png"/> are in THz.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>c_v</strong> – heat capacity in W/m/K for each k point and each mode</p>
+<dd class="field-odd"><p><strong>c_v</strong> – (n_k_points, n_modes) The heat capacity in W/m/K for each k point and each mode.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.array(n_k_points, n_modes)</p>
+<dd class="field-even"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -554,7 +559,7 @@ Bose-Einstein weighted by each phonons energy.
 <dd><p>Calculates the angular frequencies from the diagonalized dynamical matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>frequency</strong> – (n_k_points, n_modes) frequency in rad</p>
+<dd class="field-odd"><p><strong>frequency</strong> – (n_k_points, n_modes) Frequency in rad</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>np array</p>
@@ -567,10 +572,10 @@ Bose-Einstein weighted by each phonons energy.
 <dd><p>Calculate the 3-phonons-processes phase_space, for each k point in k_points and each mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>phase_space</strong> – phase_space for each k point and each mode</p>
+<dd class="field-odd"><p><strong>phase_space</strong> – (n_k_points, n_modes) Phase_space for each k point and each mode</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.array(n_k_points, n_modes)</p>
+<dd class="field-even"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -578,9 +583,15 @@ Bose-Einstein weighted by each phonons energy.
 <dt id="kaldo.phonons.Phonons.physical_mode">
 <em class="property">property </em><code class="sig-name descname">physical_mode</code><a class="headerlink" href="#kaldo.phonons.Phonons.physical_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate physical modes. Non physical modes are the first 3 modes of q=(0, 0, 0) and, if defined, all the
-modes outside the frequency range min_frequency and max_frequency.
-:returns: <strong>physical_mode</strong> – (n_k_points, n_modes) bool
-:rtype: np array</p>
+modes outside the frequency range min_frequency and max_frequency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>physical_mode</strong> – (n_k_points, n_modes) bool</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np array</p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py method">
 <dt id="kaldo.phonons.Phonons.population">
@@ -590,10 +601,10 @@ If classical, it returns the temperature divided by each frequency, using equipa
 If quantum it returns the Bose-Einstein distribution</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>population</strong> – population for each k point and each mode</p>
+<dd class="field-odd"><p><strong>population</strong> – (n_k_points, n_modes) population for each k point and each mode</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.array(n_k_points, n_modes)</p>
+<dd class="field-even"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -603,7 +614,7 @@ If quantum it returns the Bose-Einstein distribution</p>
 <dd><p>Calculates the velocity using Hellmann-Feynman theorem.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>velocity</strong> – (n_k_points, n_unit_cell * 3, 3) velocity in 100m/s or A/ps</p>
+<dd class="field-odd"><p><strong>velocity</strong> – (n_k_points, n_unit_cell * 3, 3) The velocity in 100m/s or A/ps</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>np array</p>

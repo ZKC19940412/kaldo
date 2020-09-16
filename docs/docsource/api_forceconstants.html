@@ -427,15 +427,15 @@ unit cell geometry and calculator information.</p>
 ASE atoms object.</p></li>
 <li><p><strong>supercell</strong> (<em>3-tuple</em><em>, </em><em>optional</em>) – Size of supercell given by the number of repetitions (l, m, n) of
 the small unit cell in each direction.
-Defaults to (1, 1, 1)</p></li>
+Default: (1, 1, 1)</p></li>
 <li><p><strong>third_supercell</strong> (<em>3-tuple</em><em>, </em><em>optional</em>) – Size of supercell given by number of repetitions (l, m, n) for the third
 order force constant matrix. If not provided, it’s copied from supercell
-. Defaults to <span class="math">self.supercell</span></p></li>
+. Default: <img alt="self.supercell" class="math" src="../_images/math/11c0006d15164d9da615ed3ccfd97139860f7f16.png"/></p></li>
 <li><p><strong>folder</strong> (<em>str</em><em>, </em><em>optional</em>) – Name to be used for the displacement information folder.
 <em>Defaults to ‘displacement’</em></p></li>
 <li><p><strong>distance_threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – If the distance between two atoms exceeds threshold, the interatomic
 force is ignored.
-Defaults to <span class="math">None</span></p></li>
+Default: <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/></p></li>
 </ul>
 </dd>
 <dt class="field-even">Attributes</dt>
@@ -469,22 +469,22 @@ Defaults to <span class="math">None</span></p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>folder</strong> (<em>str</em>) – Chosen folder to load in system information.</p></li>
 <li><p><strong>supercell</strong> (<em>3 tuple</em><em>, </em><em>optional</em>) – Number of unit cells in each cartesian direction replicated to form the input structure.
-Default is (1, 1, 1)</p></li>
+Default: (1, 1, 1)</p></li>
 <li><p><strong>format</strong> (<em>string</em>) – Format of force constant information being loaded into ForceConstants object.
 Options are ‘numpy’, ‘eskm’, ‘lammps’, ‘shengbte’, ‘shengbte-qe’,
-or ‘hiphive’. Default is ‘numpy’</p></li>
+or ‘hiphive’. Default: ‘numpy’</p></li>
 <li><p><strong>third_energy_threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – <dl class="simple">
 <dt>When importing sparse third order force constant matrices, energies below</dt><dd><p>the threshold value in magnitude are ignored. Units: ev/A^3.</p>
 </dd>
 </dl>
-<p>Default is <span class="math">None</span></p>
+<p>Default: <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/></p>
 </p></li>
 <li><p><strong>distance_threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – When calculating force constants, contributions from atoms further
 than the distance threshold will be ignored.</p></li>
 <li><p><strong>third_supercell</strong> (<em>3-tuple</em><em>, </em><em>optional</em>) – Takes in the unit cell for the third order force constant matrix.
-Default is self.supercell</p></li>
+Default: self.supercell</p></li>
 <li><p><strong>is_acoustic_sum</strong> (<em>Bool</em><em>, </em><em>optional</em>) – If true, the accoustic sum rule is applied to the dynamical matrix.
-Default is False</p></li>
+Default: False</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -504,10 +504,10 @@ cell into a matrix for a larger supercell.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>reduced_third</strong> (<em>array</em><em>, </em><em>optional</em>) – The third order force constant matrix.
-Default is <span class="math">self.third_order</span></p></li>
+Default: <img alt="self.third_order" class="math" src="../_images/math/e49030436abf95ad3d5c6c3b1a31ba26a7eab064.png"/></p></li>
 <li><p><strong>distance_threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – When calculating force constants, contributions from atoms further than
 the distance threshold will be ignored.
-Default is self.distance_threshold</p></li>
+Default: self.distance_threshold</p></li>
 </ul>
 </dd>
 </dl>

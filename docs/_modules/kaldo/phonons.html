@@ -410,23 +410,22 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    forceconstants : $\kappa$ALDo ForceConstants Object</span>
+<span class="sd">    forceconstants : ForceConstants Object</span>
 <span class="sd">        Contains all the information about the system and the derivatives</span>
 <span class="sd">        of the potential.</span>
-<span class="sd">    is_classic : bool</span>
-<span class="sd">        Specifies if the system is classic, `True` or quantum, `False`</span>
-<span class="sd">        Default is `False`</span>
-<span class="sd">    kpts : 3-tuple, optional</span>
-<span class="sd">        Defines the number of k points to use to create the k mesh</span>
-<span class="sd">        Default is (1, 1, 1)</span>
 <span class="sd">    temperature : float</span>
 <span class="sd">        defines the temperature of the simulation. Units: K.</span>
+<span class="sd">    is_classic : bool</span>
+<span class="sd">        Specifies if the system is classic, `True` or quantum, `False`</span>
+<span class="sd">    kpts : 3-tuple, optional</span>
+<span class="sd">        Defines the number of k points to use to create the k mesh</span>
+<span class="sd">        Default: (1, 1, 1)</span>
 <span class="sd">    min_frequency : float, optional</span>
 <span class="sd">        ignores all phonons with frequency below `min_frequency` THz,</span>
-<span class="sd">        Default is `None`</span>
+<span class="sd">        Default: `None`</span>
 <span class="sd">    max_frequency : float, optional</span>
 <span class="sd">        ignores all phonons with frequency above `max_frequency` THz</span>
-<span class="sd">        Default is `None`</span>
+<span class="sd">        Default: `None`</span>
 <span class="sd">    third_bandwidth : float, optional</span>
 <span class="sd">        Defines the width of the energy conservation smearing in the phonons</span>
 <span class="sd">        scattering calculation. If `None` the width is calculated</span>
@@ -436,17 +435,17 @@
 <span class="sd">        Defines the algorithm to use for the broadening of the conservation</span>
 <span class="sd">        of the energy for third irder interactions. Available broadenings</span>
 <span class="sd">        are `gauss`, `lorentz` and `triangle`.</span>
-<span class="sd">        Default is `gauss`.</span>
+<span class="sd">        Default: `gauss`.</span>
 <span class="sd">    folder : string, optional</span>
-<span class="sd">        Specifies where to store the data files. Default is `output`.</span>
+<span class="sd">        Specifies where to store the data files. Default: `output`.</span>
 <span class="sd">    storage : sting, optional</span>
 <span class="sd">        Defines the storing strategy used to store the observables. Options are</span>
 <span class="sd">        `default`, `formatted`, `numpy`, `memory`, and `hdf5`.</span>
 <span class="sd">        The `memory` selection doesn't generate any output in the file system.</span>
-<span class="sd">        Default is `numpy`</span>
+<span class="sd">        Default: `numpy`</span>
 <span class="sd">    grid_type : string, optional</span>
 <span class="sd">        Specify if to use 'C' style atoms replica grid or fortran</span>
-<span class="sd">        style 'F'. Options are 'C' and 'F' Default is 'C'</span>
+<span class="sd">        style 'F'. Options are 'C' and 'F' Default: 'C'</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -487,6 +486,7 @@
     <span class="k">def</span> <span class="nf">physical_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""Calculate physical modes. Non physical modes are the first 3 modes of q=(0, 0, 0) and, if defined, all the</span>
 <span class="sd">        modes outside the frequency range min_frequency and max_frequency.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        physical_mode : np array</span>
@@ -498,7 +498,8 @@
 
     <span class="nd">@lazy_property</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Calculate phonons frequency</span>
+        <span class="sd">"""Calculate the phonons' frequencies.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        frequency : np array</span>
@@ -529,7 +530,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        velocity : np array</span>
-<span class="sd">            (n_k_points, n_unit_cell * 3, 3) velocity in 100m/s or A/ps</span>
+<span class="sd">            (n_k_points, n_unit_cell * 3, 3) The velocity in 100m/s or A/ps</span>
 <span class="sd">        """</span>
 
         <span class="n">q_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_q_mesh</span>
@@ -574,9 +575,10 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        _eigensystem : np.array(n_k_points, n_unit_cell * 3, n_unit_cell * 3 + 1)</span>
-<span class="sd">            eigensystem is calculated for each k point, the three dimensional array</span>
-<span class="sd">            records the eigenvalues in the last column of the last dimension.</span>
+<span class="sd">        _eigensystem : np.array</span>
+<span class="sd">            (n_k_points, n_unit_cell * 3, n_unit_cell * 3 + 1) eigensystem is</span>
+<span class="sd">            calculated for each k point, the three dimensional array records the</span>
+<span class="sd">            eigenvalues in the last column of the last dimension.</span>
 
 <span class="sd">            If the system is not amorphous, these values are stored as complex numbers.</span>
 <span class="sd">        """</span>
@@ -634,8 +636,8 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        c_v : np.array(n_k_points, n_modes)</span>
-<span class="sd">            heat capacity in W/m/K for each k point and each mode</span>
+<span class="sd">        c_v : np.array</span>
+<span class="sd">            (n_k_points, n_modes) The heat capacity in W/m/K for each k point and each mode.</span>
 <span class="sd">        """</span>
         <span class="n">c_v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_heat_capacity</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_k_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_modes</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">c_v</span>
@@ -649,8 +651,8 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        population : np.array(n_k_points, n_modes)</span>
-<span class="sd">            population for each k point and each mode</span>
+<span class="sd">        population : np.array</span>
+<span class="sd">            (n_k_points, n_modes) population for each k point and each mode</span>
 <span class="sd">        """</span>
         <span class="n">population</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_population</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">population</span>
@@ -662,8 +664,8 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        bandwidth : np.array(n_k_points, n_modes)</span>
-<span class="sd">            bandwidth for each k point and each mode</span>
+<span class="sd">        bandwidth : np.array</span>
+<span class="sd">            (n_k_points, n_modes) Bandwidth for each k point and each mode</span>
 <span class="sd">        """</span>
         <span class="n">gamma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ps_and_gamma</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_k_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_modes</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">gamma</span>
@@ -675,8 +677,8 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        phase_space : np.array(n_k_points, n_modes)</span>
-<span class="sd">            phase_space for each k point and each mode</span>
+<span class="sd">        phase_space : np.array</span>
+<span class="sd">            (n_k_points, n_modes) Phase_space for each k point and each mode</span>
 <span class="sd">        """</span>
         <span class="n">ps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ps_and_gamma</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_k_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_modes</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ps</span>
@@ -734,7 +736,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        frequency : np array</span>
-<span class="sd">            (n_k_points, n_modes) frequency in rad</span>
+<span class="sd">            (n_k_points, n_modes) Frequency in rad</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 

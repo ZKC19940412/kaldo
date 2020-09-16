@@ -28,18 +28,18 @@ class ForceConstants:
     supercell: 3-tuple, optional
         Size of supercell given by the number of repetitions (l, m, n) of
         the small unit cell in each direction.
-        Defaults to (1, 1, 1)
+        Default: (1, 1, 1)
     third_supercell: 3-tuple, optional
         Size of supercell given by number of repetitions (l, m, n) for the third
         order force constant matrix. If not provided, it's copied from supercell
-        . Defaults to `self.supercell`
+        . Default: `self.supercell`
     folder: str, optional
         Name to be used for the displacement information folder.
         *Defaults to 'displacement'*
     distance_threshold: float, optional
         If the distance between two atoms exceeds threshold, the interatomic
         force is ignored.
-        Defaults to `None`
+        Default: `None`
     """
 
     def __init__(self,
@@ -87,24 +87,24 @@ class ForceConstants:
     		Chosen folder to load in system information.
         supercell : 3 tuple, optional
     		Number of unit cells in each cartesian direction replicated to form the input structure.
-    		Default is (1, 1, 1)
+    		Default: (1, 1, 1)
         format : string
     		Format of force constant information being loaded into ForceConstants object.
             Options are 'numpy', 'eskm', 'lammps', 'shengbte', 'shengbte-qe',
-            or 'hiphive'. Default is 'numpy'
+            or 'hiphive'. Default: 'numpy'
         third_energy_threshold : float, optional
     		When importing sparse third order force constant matrices, energies below
     		the threshold value in magnitude are ignored. Units: ev/A^3.
-            Default is `None`
+            Default: `None`
         distance_threshold : float, optional
     		When calculating force constants, contributions from atoms further
             than the distance threshold will be ignored.
         third_supercell : 3-tuple, optional
     		Takes in the unit cell for the third order force constant matrix.
-    		Default is self.supercell
+    		Default: self.supercell
         is_acoustic_sum : Bool, optional
     		If true, the accoustic sum rule is applied to the dynamical matrix.
-    		Default is False
+    		Default: False
 
         Returns
     	-------
@@ -154,11 +154,11 @@ class ForceConstants:
 
         reduced_third : array, optional
             The third order force constant matrix.
-            Default is `self.third_order`
+            Default: `self.third_order`
         distance_threshold : float, optional
             When calculating force constants, contributions from atoms further than
             the distance threshold will be ignored.
-            Default is self.distance_threshold
+            Default: self.distance_threshold
         """
         logging.info('Unfolding third order matrix')
         if distance_threshold is None:

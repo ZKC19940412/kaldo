@@ -422,44 +422,44 @@ conductivity calculations. It takes a phonons object as a required argument.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>phonons</strong> (<em>$kappa$ALDo Phonons Object</em>) – Contains all the information about the calculated phononic properties of the system</p></li>
+<li><p><strong>phonons</strong> (<em>Phonons Object</em>) – Contains all the information about the calculated phononic properties of the system</p></li>
 <li><p><strong>method</strong> (<em>string</em>) – Specifies the method used to calculate_second the conductivity. Options
 are ‘rta’, ‘sc’, ‘qhgk’, and ‘inverse’. See the theory page for details
 about the assumptions of the system implicit in each method.</p></li>
 <li><p><strong>diffusivity_bandwidth</strong> (<em>float</em><em>, </em><em>method specific</em>) – (QHGK) Specifies the bandwidth to use in the calculation of the flux
 operator in the Allen-Feldman model of the thermal conductivity in
 amorphous systems. If a float is specified, all modes recieve the same
-bandwidth, if <span class="math">diffusivity_bandwidth = None</span>, each mode recieves a unique
+bandwidth, if <img alt="diffusivity_bandwidth = None" class="math" src="../_images/math/12ba13b990d4582c4e0371e1ae9dbc0b2e5bfe12.png"/>, each mode recieves a unique
 bandwidth calculated by 0.5*phonons.bandwith. Units: rad/ps
-Defaults to <span class="math">None</span></p></li>
+Default: <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/></p></li>
 <li><p><strong>diffusivity_threshold</strong> (<em>float</em><em>, </em><em>method specific</em>) – (QHGK) Sets to 0 mode diffusivities that are beneath the specified
-threshold. Defaults to <span class="math">None</span></p></li>
+threshold. Units: <img alt="mm^2/s" class="math" src="../_images/math/40952db797966b09022d5b010a66ac3e8a950a9c.png"/> Default: <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/></p></li>
 <li><p><strong>diffusivity_shape</strong> (<em>string</em><em>, </em><em>method specific</em>) – (QHGK) Defines the algorithm to use to calculate the diffusivity.
-Available broadenings are <span class="math">gauss</span>, <span class="math">lorentz</span> and <span class="math">triangle</span>. See the
-theory page for more details. Default is <span class="math">lorentz</span>.</p></li>
+Available broadenings are <img alt="gauss" class="math" src="../_images/math/2059dd30c330e08ced22748f70360a59603b6252.png"/>, <img alt="lorentz" class="math" src="../_images/math/0ecd3a42fba2ac4f9fc492ba29a99a8a670a5f8e.png"/> and <img alt="triangle" class="math" src="../_images/math/34b7c8af4374add3e6f9fb880161480a6ac7ea40.png"/>. See the
+theory page for more details. Default: <img alt="lorentz" class="math" src="../_images/math/0ecd3a42fba2ac4f9fc492ba29a99a8a670a5f8e.png"/>.</p></li>
 <li><p><strong>is_diffusivity_including_antiresonant</strong> (<em>bool</em><em>, </em><em>method specific</em>) – (QHGK) Defines if you want to include or not anti-resonant terms in
-diffusivity calculations. Default is <span class="math">False</span>.</p></li>
+diffusivity calculations. Default: <img alt="False" class="math" src="../_images/math/7492b7ed43697b62f89bfbfdd66b552e2ec5e7d1.png"/>.</p></li>
 <li><p><strong>tolerance</strong> (<em>int</em><em>, </em><em>method specific</em>) – (Self-consistent) In the self consistent conductivity calculation, it
-specifies the difference in W/m/K between n and n+1 step, to set as
-the exit/convergence condition. Defaults to 0.1 W/m/K</p></li>
+specifies the difference between n and n+1 step, to set as
+the exit/convergence condition. Units: W/m/K Default: 0.1</p></li>
 <li><p><strong>n_iterations</strong> (<em>int</em><em>, </em><em>method specific</em>) – (Self-consistent) Specifies the max number of iterations to set as exit
-condition in the self consistent conductivity. Defaults to 50.
+condition in the self consistent conductivity. Default: 50.
 calculation</p></li>
 <li><p><strong>length</strong> (<em>3-tuple</em><em>, </em><em>method specific</em>) – (Finite Size) Specifies the length to use in x, y, z to calculate_second
-the finite size conductivity. <span class="math">0</span> or <span class="math">None</span> values corresponds to the
-infinity length limit. Defaults to (<span class="math">None</span>, <span class="math">None</span>, <span class="math">None</span>)</p></li>
+the finite size conductivity. <img alt="0" class="math" src="../_images/math/e908d8d9183eb0809b905f5470d05fe84af9c8e1.png"/> or <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/> values corresponds to the
+infinity length limit. Default: (<img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/>, <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/>, <img alt="None" class="math" src="../_images/math/66f3449a3b20a6309557813edf86759218d71d30.png"/>) Units: <img alt="\AA" class="math" src="../_images/math/95bcdeffffc56e3d39749dc45c9f0c2acbe94649.png"/></p></li>
 <li><p><strong>finite_length_method</strong> (<em>string</em><em>, </em><em>method specific</em>) – (Finite Size) Specifies how to calculate_second the finite size
 conductivity. Options are ‘matthiessen’, ‘ms’, and ‘caltech’, which correspond
 to Matthiessen, Mckelvey-Schockley, and Caltech methods. Read more about
-there assumptions here&lt;link_to_theory&gt;. Defaults to ‘ms’</p></li>
+there assumptions here&lt;link_to_theory&gt;. Default: ‘ms’</p></li>
 <li><p><strong>storage</strong> (<em>string</em><em>, </em><em>optional</em>) – Defines the type of storage used for the simulation.
 The options are ‘formatted’, ‘hdf5’, ‘numpy’, and ‘memory’. ‘memory’ does
 not store any data in the file system, but outputs it verbally. Default
-is <span class="math">formatted</span></p></li>
+is <img alt="formatted" class="math" src="../_images/math/ce7075e3e5655ca06a8192bc6a440969509266d2.png"/></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An instance of the <span class="math">Conductivity</span> class.</p>
+<dd class="field-even"><p>An instance of the <img alt="Conductivity" class="math" src="../_images/math/d86e818b25701d35fc54e6c81501cc9af319d14a.png"/> class.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#kaldo.conductivity.Conductivity" title="kaldo.conductivity.Conductivity">Conductivity</a></p>
@@ -473,15 +473,15 @@ is <span class="math">formatted</span></p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Attributes</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><a class="reference internal" href="#kaldo.conductivity.Conductivity.conductivity" title="kaldo.conductivity.Conductivity.conductivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conductivity</span></code></a></dt><dd><p>Calculate the thermal conductivity per mode in W/m/K as a 3 x 3 matrix where element $c_{lpha eta}$ represents the conductivity in direction $lpha$ due to an applied temperature gradient in direction $eta$.</p>
+<dt><a class="reference internal" href="#kaldo.conductivity.Conductivity.conductivity" title="kaldo.conductivity.Conductivity.conductivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conductivity</span></code></a></dt><dd><p>Calculate the thermal conductivity per mode as a 3 x 3 matrix where element <img alt="c_{\alpha \beta}" class="math" src="../_images/math/a4d28ccd5df605e798569d3c1554c716a8fd81da.png"/> represents the conductivity in direction <img alt="\alpha" class="math" src="../_images/math/04d011ebcba612844adea8dbc1d9c21e8bc7bc26.png"/> due to an applied temperature gradient in direction <img alt="\beta" class="math" src="../_images/math/dfeaa91a1f9320dfc95b044ef3e10f470967c9d7.png"/>.</p>
 </dd>
-<dt><a class="reference internal" href="#kaldo.conductivity.Conductivity.diffusivity" title="kaldo.conductivity.Conductivity.diffusivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffusivity</span></code></a></dt><dd><p>Calculate the diffusivity, for each k point in k_points and each mode</p>
+<dt><a class="reference internal" href="#kaldo.conductivity.Conductivity.diffusivity" title="kaldo.conductivity.Conductivity.diffusivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffusivity</span></code></a></dt><dd><p>Calculate the diffusivity, or rate of heat transfer in units of area per time for each k point in k_points and each mode.</p>
 </dd>
 <dt><a class="reference internal" href="#kaldo.conductivity.Conductivity.flux_dense" title="kaldo.conductivity.Conductivity.flux_dense"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flux_dense</span></code></a></dt><dd><p>Calculate the flux, for each couple of k point in k_points/modes.</p>
 </dd>
 <dt><a class="reference internal" href="#kaldo.conductivity.Conductivity.flux_sparse" title="kaldo.conductivity.Conductivity.flux_sparse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flux_sparse</span></code></a></dt><dd><p>Calculate the flux, for each couple of k point in k_points/modes.</p>
 </dd>
-<dt><a class="reference internal" href="#kaldo.conductivity.Conductivity.mean_free_path" title="kaldo.conductivity.Conductivity.mean_free_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean_free_path</span></code></a></dt><dd><p>Calculate the mean_free_path per mode in $AA$</p>
+<dt><a class="reference internal" href="#kaldo.conductivity.Conductivity.mean_free_path" title="kaldo.conductivity.Conductivity.mean_free_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean_free_path</span></code></a></dt><dd><p>Calculate the mean_free_path per mode.</p>
 </dd>
 </dl>
 </dd>
@@ -494,7 +494,7 @@ is <span class="math">formatted</span></p></li>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#kaldo.conductivity.Conductivity.calculate_2d_heat_capacity" title="kaldo.conductivity.Conductivity.calculate_2d_heat_capacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_2d_heat_capacity</span></code></a>(k_index)</p></td>
-<td><p>Calculates the factor for the diffusivity which resembles the heat</p></td>
+<td><p>Calculates the factor for the diffusivity which resembles the heat capacity.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#kaldo.conductivity.Conductivity.calculate_conductivity_qhgk" title="kaldo.conductivity.Conductivity.calculate_conductivity_qhgk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_conductivity_qhgk</span></code></a>()</p></td>
 <td><p>Calculates the conductivity of each mode using the :ref:’Quasi-Harmonic-Green-Kubo Model’.</p></td>
@@ -521,19 +521,73 @@ is <span class="math">formatted</span></p></li>
 <dl class="py method">
 <dt id="kaldo.conductivity.Conductivity.calculate_2d_heat_capacity">
 <code class="sig-name descname">calculate_2d_heat_capacity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k_index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kaldo/conductivity.html#Conductivity.calculate_2d_heat_capacity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kaldo.conductivity.Conductivity.calculate_2d_heat_capacity" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Calculates the factor for the diffusivity which resembles the heat</dt><dd><p>capacity in units of J/K.
-Using classical mechanics: $K_b$
-Using quantum mechanics: $C_{nm}=hbar</p>
-</dd>
-</dl>
-<p>rac{omega_n omega_m}{T}</p>
-<p>rac{n_n-n_m}{omega_m omega_n)$</p>
+<dd><p>Calculates the factor for the diffusivity which resembles the heat
+capacity.
+Using classical mechanics: <img alt="K_b" class="math" src="../_images/math/695d1ff350177d1e3fb797ebdf2b065134ed35f6.png"/>
+Using quantum mechanics: <div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">C_{nm}=\hbar \frac{\omega_n \omega_m}{T}
+\frac{n_n-n_m}{\omega_m \omega_n)</span>)</p>
+<p>latex exited with error
+[stdout]
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex)
+ restricted \write18 enabled.
+entering extended mode
+(./math.tex
+LaTeX2e &lt;2017-04-15&gt;
+Babel &lt;3.18&gt; and hyphenation patterns for 3 language(s) loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/anyfontsize/anyfontsize.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/doublestroke/dsfont.sty) (./math.aux)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/dvips.def)))
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd))
+Runaway argument?
+{\omega _m \omega _n)$ \end {document} 
+! File ended while scanning use of \frac .
+&lt;inserted text&gt; 
+                \par 
+&lt;*&gt; math.tex
+            
+! Emergency stop.
+&lt;*&gt; math.tex
+            
+No pages of output.
+Transcript written on math.log.
+</p>
+</div>
+
+Units: J/K</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>c_v</strong><span class="classifier">np.array(phonons.n_k_points,phonons.modes, phonons.n_modes) float</span></dt><dd></dd>
-</dl>
+<dd class="field-odd"><p><strong>c_v</strong> – (phonons.n_k_points,phonons.modes, phonons.n_modes) Heat capacity for each k point and mode.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -541,14 +595,15 @@ Using quantum mechanics: $C_{nm}=hbar</p>
 <dt id="kaldo.conductivity.Conductivity.calculate_conductivity_qhgk">
 <code class="sig-name descname">calculate_conductivity_qhgk</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kaldo/conductivity.html#Conductivity.calculate_conductivity_qhgk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kaldo.conductivity.Conductivity.calculate_conductivity_qhgk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the conductivity of each mode using the :ref:’Quasi-Harmonic-Green-Kubo Model’.
-The tensor is returned individual modes along the first axis and has units of W/m/K.
-Will be made a private function in future relases.</p>
+The tensor is returned individual modes along the first axis.
+Will be made a private function in future relases.
+Units: W/m/K</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>conductivity_per_mode</strong></p>
+<dd class="field-odd"><p><strong>conductivity_per_mode</strong> – (phonons.n_phonons, 3, 3) Conductivity for each mode in the QHGK framework.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.array(phonons.n_phonons, 3, 3)</p>
+<dd class="field-even"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -571,8 +626,9 @@ temparatures), this quantity can be used to calculate thermal conductivity.</p>
 <dt id="kaldo.conductivity.Conductivity.calculate_mfp_inverse">
 <code class="sig-name descname">calculate_mfp_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kaldo/conductivity.html#Conductivity.calculate_mfp_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kaldo.conductivity.Conductivity.calculate_mfp_inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method calculates the inverse of the mean free path for each phonon.
-The matrix returns k vectors for each mode and has units of inverse Angstroms.
-Will be made a private function in future relases.</p>
+The matrix returns k vectors for each mode.
+Will be made a private function in future relases.
+Units: <img alt="\AA^{-1}" class="math" src="../_images/math/34816c2865a8a6149828a6bf9d69f1ef97d5d962.png"/></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><strong>lambda</strong></p>
@@ -585,30 +641,31 @@ Will be made a private function in future relases.</p>
 <dl class="py method">
 <dt id="kaldo.conductivity.Conductivity.conductivity">
 <em class="property">property </em><code class="sig-name descname">conductivity</code><a class="headerlink" href="#kaldo.conductivity.Conductivity.conductivity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the thermal conductivity per mode in W/m/K as a 3 x 3 matrix
-where element $c_{lpha eta}$ represents the conductivity in direction
-$lpha$ due to an applied temperature gradient in direction $eta$.
-pass</p>
+<dd><p>Calculate the thermal conductivity per mode as a 3 x 3 matrix
+where element <img alt="c_{\alpha \beta}" class="math" src="../_images/math/a4d28ccd5df605e798569d3c1554c716a8fd81da.png"/> represents the conductivity in direction
+<img alt="\alpha" class="math" src="../_images/math/04d011ebcba612844adea8dbc1d9c21e8bc7bc26.png"/> due to an applied temperature gradient in direction <img alt="\beta" class="math" src="../_images/math/dfeaa91a1f9320dfc95b044ef3e10f470967c9d7.png"/>.
+Units: W/m/K</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>conductivity</strong></p>
+<dd class="field-odd"><p><strong>conductivity</strong> – (phonons.n_k_points, phonons.n_modes, 3, 3) The conductivity values
+for each mode.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np array (phonons.n_k_points, phonons.n_modes, 3, 3)</p>
+<dd class="field-even"><p>np array</p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py method">
 <dt id="kaldo.conductivity.Conductivity.diffusivity">
 <em class="property">property </em><code class="sig-name descname">diffusivity</code><a class="headerlink" href="#kaldo.conductivity.Conductivity.diffusivity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the diffusivity, for each k point in k_points and each mode
-in $mm^2/s$</p>
+<dd><p>Calculate the diffusivity, or rate of heat transfer in units of area
+per time for each k point in k_points and each mode. Units: :math:<a href="#id1"><span class="problematic" id="id2">``</span></a>mm^2/s`</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>diffusivity</strong></p>
+<dd class="field-odd"><p><strong>diffusivity</strong> – (phonons.n_k_points, phonons.n_modes) Rate of</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.array(phonons.n_k_points, phonons.n_modes)</p>
+<dd class="field-even"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -641,13 +698,16 @@ in $mm^2/s$</p>
 <dl class="py method">
 <dt id="kaldo.conductivity.Conductivity.mean_free_path">
 <em class="property">property </em><code class="sig-name descname">mean_free_path</code><a class="headerlink" href="#kaldo.conductivity.Conductivity.mean_free_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the mean_free_path per mode in $AA$</p>
+<dd><p><img alt="\AA" class="math" src="../_images/math/95bcdeffffc56e3d39749dc45c9f0c2acbe94649.png"/></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>mfp</strong></p>
+<dd class="field-odd"><p><strong>mfp</strong> – (phonons.n_k_points, phonons.n_modes) The mean free path for each mode.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np array(phonons.n_k_points, phonons.n_modes)</p>
+<dd class="field-even"><p>np array</p>
+</dd>
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Calculate the mean_free_path per mode. Units</p>
 </dd>
 </dl>
 </dd></dl>

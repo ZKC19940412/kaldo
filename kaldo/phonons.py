@@ -28,23 +28,22 @@ class Phonons:
 
     Parameters
     ----------
-    forceconstants : $\kappa$ALDo ForceConstants Object
+    forceconstants : ForceConstants Object
         Contains all the information about the system and the derivatives
         of the potential.
-    is_classic : bool
-        Specifies if the system is classic, `True` or quantum, `False`
-        Default is `False`
-    kpts : 3-tuple, optional
-        Defines the number of k points to use to create the k mesh
-        Default is (1, 1, 1)
     temperature : float
         defines the temperature of the simulation. Units: K.
+    is_classic : bool
+        Specifies if the system is classic, `True` or quantum, `False`
+    kpts : 3-tuple, optional
+        Defines the number of k points to use to create the k mesh
+        Default: (1, 1, 1)
     min_frequency : float, optional
         ignores all phonons with frequency below `min_frequency` THz,
-        Default is `None`
+        Default: `None`
     max_frequency : float, optional
         ignores all phonons with frequency above `max_frequency` THz
-        Default is `None`
+        Default: `None`
     third_bandwidth : float, optional
         Defines the width of the energy conservation smearing in the phonons
         scattering calculation. If `None` the width is calculated
@@ -54,17 +53,17 @@ class Phonons:
         Defines the algorithm to use for the broadening of the conservation
         of the energy for third irder interactions. Available broadenings
         are `gauss`, `lorentz` and `triangle`.
-        Default is `gauss`.
+        Default: `gauss`.
     folder : string, optional
-        Specifies where to store the data files. Default is `output`.
+        Specifies where to store the data files. Default: `output`.
     storage : sting, optional
         Defines the storing strategy used to store the observables. Options are
         `default`, `formatted`, `numpy`, `memory`, and `hdf5`.
         The `memory` selection doesn't generate any output in the file system.
-        Default is `numpy`
+        Default: `numpy`
     grid_type : string, optional
         Specify if to use 'C' style atoms replica grid or fortran
-        style 'F'. Options are 'C' and 'F' Default is 'C'
+        style 'F'. Options are 'C' and 'F' Default: 'C'
 
     Returns
     -------
@@ -105,6 +104,7 @@ class Phonons:
     def physical_mode(self):
         """Calculate physical modes. Non physical modes are the first 3 modes of q=(0, 0, 0) and, if defined, all the
         modes outside the frequency range min_frequency and max_frequency.
+
         Returns
         -------
         physical_mode : np array
@@ -116,7 +116,8 @@ class Phonons:
 
     @lazy_property(label='')
     def frequency(self):
-        """Calculate phonons frequency
+        """Calculate the phonons' frequencies.
+
         Returns
         -------
         frequency : np array
@@ -147,7 +148,7 @@ class Phonons:
         Returns
         -------
         velocity : np array
-            (n_k_points, n_unit_cell * 3, 3) velocity in 100m/s or A/ps
+            (n_k_points, n_unit_cell * 3, 3) The velocity in 100m/s or A/ps
         """
 
         q_points = self._main_q_mesh
@@ -192,9 +193,10 @@ class Phonons:
 
         Returns
         -------
-        _eigensystem : np.array(n_k_points, n_unit_cell * 3, n_unit_cell * 3 + 1)
-            eigensystem is calculated for each k point, the three dimensional array
-            records the eigenvalues in the last column of the last dimension.
+        _eigensystem : np.array
+            (n_k_points, n_unit_cell * 3, n_unit_cell * 3 + 1) eigensystem is
+            calculated for each k point, the three dimensional array records the
+            eigenvalues in the last column of the last dimension.
 
             If the system is not amorphous, these values are stored as complex numbers.
         """
@@ -252,8 +254,8 @@ class Phonons:
 
         Returns
         -------
-        c_v : np.array(n_k_points, n_modes)
-            heat capacity in W/m/K for each k point and each mode
+        c_v : np.array
+            (n_k_points, n_modes) The heat capacity in W/m/K for each k point and each mode.
         """
         c_v = self._calculate_heat_capacity().reshape(self.n_k_points, self.n_modes)
         return c_v
@@ -267,8 +269,8 @@ class Phonons:
 
         Returns
         -------
-        population : np.array(n_k_points, n_modes)
-            population for each k point and each mode
+        population : np.array
+            (n_k_points, n_modes) population for each k point and each mode
         """
         population =  self._calculate_population()
         return population
@@ -280,8 +282,8 @@ class Phonons:
 
         Returns
         -------
-        bandwidth : np.array(n_k_points, n_modes)
-            bandwidth for each k point and each mode
+        bandwidth : np.array
+            (n_k_points, n_modes) Bandwidth for each k point and each mode
         """
         gamma = self._ps_and_gamma[:, 1].reshape(self.n_k_points, self.n_modes)
         return gamma
@@ -293,8 +295,8 @@ class Phonons:
 
         Returns
         -------
-        phase_space : np.array(n_k_points, n_modes)
-            phase_space for each k point and each mode
+        phase_space : np.array
+            (n_k_points, n_modes) Phase_space for each k point and each mode
         """
         ps = self._ps_and_gamma[:, 0].reshape(self.n_k_points, self.n_modes)
         return ps
@@ -352,7 +354,7 @@ class Phonons:
         Returns
         -------
         frequency : np array
-            (n_k_points, n_modes) frequency in rad
+            (n_k_points, n_modes) Frequency in rad
         """
         return self.frequency * 2 * np.pi
 

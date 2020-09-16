@@ -115,7 +115,7 @@ class Conductivity:
 
     Parameters
     ----------
-    phonons : $\kappa$ALDo Phonons Object
+    phonons : Phonons Object
         Contains all the information about the calculated phononic properties of the system
     method : string
         Specifies the method used to calculate_second the conductivity. Options
@@ -127,34 +127,34 @@ class Conductivity:
         amorphous systems. If a float is specified, all modes recieve the same
         bandwidth, if `diffusivity_bandwidth = None`, each mode recieves a unique
         bandwidth calculated by 0.5*phonons.bandwith. Units: rad/ps
-        Defaults to `None`
+        Default: `None`
     diffusivity_threshold : float, method specific
         (QHGK) Sets to 0 mode diffusivities that are beneath the specified
-        threshold. Defaults to `None`
+        threshold. Units: :math:`mm^2/s` Default: `None`
     diffusivity_shape : string, method specific
         (QHGK) Defines the algorithm to use to calculate the diffusivity.
         Available broadenings are `gauss`, `lorentz` and `triangle`. See the
-        theory page for more details. Default is `lorentz`.
+        theory page for more details. Default: `lorentz`.
     is_diffusivity_including_antiresonant : bool, method specific
         (QHGK) Defines if you want to include or not anti-resonant terms in
-        diffusivity calculations. Default is `False`.
+        diffusivity calculations. Default: `False`.
     tolerance : int, method specific
         (Self-consistent) In the self consistent conductivity calculation, it
-        specifies the difference in W/m/K between n and n+1 step, to set as
-        the exit/convergence condition. Defaults to 0.1 W/m/K
+        specifies the difference between n and n+1 step, to set as
+        the exit/convergence condition. Units: W/m/K Default: 0.1
     n_iterations : int, method specific
         (Self-consistent) Specifies the max number of iterations to set as exit
-        condition in the self consistent conductivity. Defaults to 50.
+        condition in the self consistent conductivity. Default: 50.
         calculation
     length: 3-tuple, method specific
         (Finite Size) Specifies the length to use in x, y, z to calculate_second
         the finite size conductivity. `0` or `None` values corresponds to the
-        infinity length limit. Defaults to (`None`, `None`, `None`)
+        infinity length limit. Default: (`None`, `None`, `None`) Units: :math:`\\AA`
     finite_length_method : string, method specific
         (Finite Size) Specifies how to calculate_second the finite size
         conductivity. Options are 'matthiessen', 'ms', and 'caltech', which correspond
         to Matthiessen, Mckelvey-Schockley, and Caltech methods. Read more about
-        there assumptions here<link_to_theory>. Defaults to 'ms'
+        there assumptions here<link_to_theory>. Default: 'ms'
     storage : string, optional
         Defines the type of storage used for the simulation.
         The options are 'formatted', 'hdf5', 'numpy', and 'memory'. 'memory' does
@@ -204,14 +204,16 @@ class Conductivity:
 
     @lazy_property(label='<diffusivity_bandwidth>/<diffusivity_threshold>/<temperature>/<statistics>/<third_bandwidth>/<method>/<length>/<finite_length_method>')
     def conductivity(self):
-        """Calculate the thermal conductivity per mode in W/m/K as a 3 x 3 matrix
-        where element $c_{\alpha \beta}$ represents the conductivity in direction
-        $\alpha$ due to an applied temperature gradient in direction $\beta$.
-        pass
+        """Calculate the thermal conductivity per mode as a 3 x 3 matrix
+        where element :math:`c_{\\alpha \\beta}` represents the conductivity in direction
+        :math:`\\alpha` due to an applied temperature gradient in direction :math:`\\beta`.
+        Units: W/m/K
 
         Returns
         -------
-        conductivity : np array (phonons.n_k_points, phonons.n_modes, 3, 3)
+        conductivity : np array
+            (phonons.n_k_points, phonons.n_modes, 3, 3) The conductivity values
+            for each mode.
         """
         method = self.method
         other_avail_methods = ['rta', 'sc', 'inverse', 'relaxon']
@@ -240,11 +242,12 @@ class Conductivity:
 
     @lazy_property(label='<diffusivity_bandwidth>/<diffusivity_threshold>/<temperature>/<statistics>/<third_bandwidth>/<method>/<length>/<finite_length_method>')
     def mean_free_path(self):
-        """Calculate the mean_free_path per mode in $\AA$
+        """Calculate the mean_free_path per mode. Units: :math:`\\AA`
 
         Returns
         -------
-        mfp : np array(phonons.n_k_points, phonons.n_modes)
+        mfp : np array
+            (phonons.n_k_points, phonons.n_modes) The mean free path for each mode.
         """
         method = self.method
 
@@ -272,12 +275,13 @@ class Conductivity:
 
     @property
     def diffusivity(self):
-        """Calculate the diffusivity, for each k point in k_points and each mode
-        in $mm^2/s$
+        """Calculate the diffusivity, or rate of heat transfer in units of area
+        per time for each k point in k_points and each mode. Units: :math:``mm^2/s`
 
         Returns
         -------
-        diffusivity : np.array(phonons.n_k_points, phonons.n_modes)
+        diffusivity : np.array
+            (phonons.n_k_points, phonons.n_modes) Rate of
         """
         try:
             return self._diffusivity
@@ -367,14 +371,16 @@ class Conductivity:
 
     def calculate_2d_heat_capacity(self, k_index):
         """Calculates the factor for the diffusivity which resembles the heat
-        capacity in units of J/K.
-        Using classical mechanics: $K_b$
-        Using quantum mechanics: $C_{nm}=\hbar \frac{\omega_n \omega_m}{T}
-        \frac{n_n-n_m}{\omega_m \omega_n)$
+        capacity.
+        Using classical mechanics: :math:`K_b`
+        Using quantum mechanics: :math:`C_{nm}=\\hbar \\frac{\\omega_n \\omega_m}{T}
+        \\frac{n_n-n_m}{\\omega_m \\omega_n)`
+        Units: J/K
 
         Returns
         -------
-        c_v : np.array(phonons.n_k_points,phonons.modes, phonons.n_modes) float
+        c_v : np.array
+            (phonons.n_k_points,phonons.modes, phonons.n_modes) Heat capacity for each k point and mode.
         """
         phonons = self.phonons
         if (phonons.is_classic):
@@ -412,12 +418,14 @@ class Conductivity:
 
     def calculate_conductivity_qhgk(self):
         """Calculates the conductivity of each mode using the :ref:'Quasi-Harmonic-Green-Kubo Model'.
-        The tensor is returned individual modes along the first axis and has units of W/m/K.
+        The tensor is returned individual modes along the first axis.
         Will be made a private function in future relases.
+        Units: W/m/K
 
         Returns
         -------
-        conductivity_per_mode : np.array(phonons.n_phonons, 3, 3)
+        conductivity_per_mode : np.array
+            (phonons.n_phonons, 3, 3) Conductivity for each mode in the QHGK framework.
         """
         phonons = self.phonons
         omega = phonons.omega.reshape((phonons.n_k_points, phonons.n_modes))
@@ -491,8 +499,9 @@ class Conductivity:
 
     def calculate_mfp_inverse(self):
         """This method calculates the inverse of the mean free path for each phonon.
-        The matrix returns k vectors for each mode and has units of inverse Angstroms.
+        The matrix returns k vectors for each mode.
         Will be made a private function in future relases.
+        Units: :math:`\\AA^{-1}`
 
         Returns
         -------
