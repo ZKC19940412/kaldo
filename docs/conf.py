@@ -15,6 +15,8 @@
 # Incase the project was not installed
 import os
 import sys
+from sphinx.ext import imgmath
+
 sys.path.insert(0, os.path.abspath('..'))
 
 # import kaldo
@@ -50,20 +52,13 @@ extensions = [
     'sphinx.ext.extlinks',
     'recommonmark',
     'nbsphinx',
-    'numpydoc'
-]
+    'numpydoc',
+    'sphinx.ext.imgmath']
+
 
 # We do it like this to support multiple sphinx version without having warning.
 # Our buildbot consider warning as error.
-try:
-    from sphinx.ext import imgmath
-    extensions.append('sphinx.ext.imgmath')
-except ImportError:
-    try:
-        from sphinx.ext import pngmath
-        extensions.append('sphinx.ext.pngmath')
-    except ImportError:
-        pass
+
 
 autosummary_generate = True
 napoleon_google_docstring = False
@@ -76,7 +71,7 @@ templates_path = ['_templates']
 # The suffix(es) of docsource filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = ['.rst', '.md']
+source_suffix = ['.rst', '.md', '.ipynb']
 # source_suffix = '.rst'
 
 # The master toctree document.
@@ -95,17 +90,7 @@ language = None
 exclude_patterns = ['_build',
                     'Thumbs.db',
                     '.DS_Store',
-                    '**.ipynb_checkpoints',
-                    'index.html',
-                    '_sources',
-                    'genindex.html',
-                    '_modules',
-                    'search.html',
-                    '_images',
-                    '_static',
-                    'searchindex.js',
-                    'objects.inv',
-                    'sitemap.xml']
+                    '**.ipynb_checkpoints']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'default'

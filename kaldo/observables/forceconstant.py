@@ -1,11 +1,8 @@
 import numpy as np
-import ase.units as units
 from kaldo.grid import Grid
 from kaldo.helpers.logger import get_logger
-
 from kaldo.observables.observable import Observable
 logging = get_logger()
-EVTOTENJOVERMOL = units.mol / (10 * units.J)
 
 
 def chi(qvec, list_of_replicas, cell_inv):
@@ -40,24 +37,24 @@ class ForceConstant(Observable):
 
         grid_c = Grid(grid_shape=self.supercell, order='C')
         grid_fortran = Grid(grid_shape=self.supercell, order='F')
-        if (grid_c.grid() == detected_grid).all():
+        if (grid_c.grid(is_wrapping=False) == detected_grid).all():
             grid_type = 'C'
-        elif (grid_fortran.grid() == detected_grid).all():
-            grid_type = 'F'
-        else:
-            logging.error("Unable to detect grid type")
-
-        if grid_type == 'C':
             logging.debug("Using C-style position grid")
-        else:
+        elif (grid_fortran.grid(is_wrapping=False) == detected_grid).all():
+            grid_type = 'F'
             logging.debug("Using fortran-style position grid")
+        else:
+            err_msg = "Unable to detect grid type"
+            logging.error(err_msg)
+            raise TypeError(err_msg)
+
         self._direct_grid = Grid(self.supercell, grid_type)
 
 
     @classmethod
     def from_supercell(cls, atoms, supercell, grid_type, value=None, folder='kALDo'):
         _direct_grid = Grid(supercell, grid_type)
-        replicated_positions = _direct_grid.grid().dot(atoms.cell)[:, np.newaxis, :] + atoms.positions[
+        replicated_positions = _direct_grid.grid(is_wrapping=False).dot(atoms.cell)[:, np.newaxis, :] + atoms.positions[
                                                                                        np.newaxis, :, :]
         inst = cls(atoms=atoms,
                    replicated_positions=replicated_positions,
@@ -87,7 +84,7 @@ class ForceConstant(Observable):
             supercell = self.supercell
             atoms = self.atoms
             replicated_atoms = atoms.copy() * supercell
-            replicated_positions = self._direct_grid.grid().dot(atoms.cell)[:, np.newaxis, :] + atoms.positions[
+            replicated_positions = self._direct_grid.grid(is_wrapping=False).dot(atoms.cell)[:, np.newaxis, :] + atoms.positions[
                                                                                                 np.newaxis, :, :]
             replicated_atoms.set_positions(replicated_positions.reshape(-1, 3))
             self._replicated_atoms = replicated_atoms

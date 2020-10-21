@@ -9,8 +9,10 @@ from ase.units import Rydberg, Bohr
 from ase import Atoms
 import os
 import re
-from kaldo.grid import Grid, wrap_coordinates
+from kaldo.grid import Grid
 from sparse import COO
+from kaldo.helpers.logger import get_logger
+logging = get_logger()
 
 BUFFER_PLOT = .2
 SHENG_FOLDER_NAME = 'sheng_bte'
@@ -245,7 +247,7 @@ def import_control_file(control_file):
                   cell=cell,
                   pbc=[1, 1, 1])
 
-    print('Atoms object created.')
+    logging.info('Atoms object created.')
     return atoms, supercell
 
 
@@ -254,7 +256,7 @@ def save_second_order_matrix(phonons):
     filename = 'FORCE_CONSTANTS_2ND'
     filename = phonons.folder + '/' + filename
     forceconstants = phonons.forceconstants
-    second_order = forceconstants.second_order
+    second_order = forceconstants.second
     n_atoms_unit_cell = forceconstants.atoms.positions.shape[0]
     n_replicas = phonons.forceconstants.n_replicas
     second_order = second_order.reshape((n_atoms_unit_cell, 3, n_replicas, n_atoms_unit_cell, 3))
@@ -273,20 +275,19 @@ def save_second_order_matrix(phonons):
                         else:
                             sub_second = np.zeros((3, 3))
 
-                        try:
-                            file.write('%.6f %.6f %.6f\n' % (sub_second[0][0], sub_second[0][1], sub_second[0][2]))
-                            file.write('%.6f %.6f %.6f\n' % (sub_second[1][0], sub_second[1][1], sub_second[1][2]))
-                            file.write('%.6f %.6f %.6f\n' % (sub_second[2][0], sub_second[2][1], sub_second[2][2]))
-                        except TypeError as err:
-                            print(err)
-    print('second order sheng saved')
+                        file.write('%.6f %.6f %.6f\n' % (sub_second[0][0], sub_second[0][1], sub_second[0][2]))
+                        file.write('%.6f %.6f %.6f\n' % (sub_second[1][0], sub_second[1][1], sub_second[1][2]))
+                        file.write('%.6f %.6f %.6f\n' % (sub_second[2][0], sub_second[2][1], sub_second[2][2]))
+
+
+    logging.info('second order sheng saved')
 
 
 def save_second_order_qe_matrix(phonons):
     shenbte_folder = phonons.folder + '/'
     n_replicas = phonons.forceconstants.n_replicas
     n_atoms = int(phonons.n_modes / 3)
-    second_order = phonons.second_order.reshape((n_atoms, 3, n_replicas, n_atoms, 3))
+    second_order = phonons.second.reshape((n_atoms, 3, n_replicas, n_atoms, 3))
     filename = 'espresso.ifc2'
     filename = shenbte_folder + filename
     file = open ('%s' % filename, 'w+')
@@ -316,7 +317,7 @@ def save_second_order_qe_matrix(phonons):
                         file.write ('\t %.11E' % matrix_element)
                         file.write ('\n')
     file.close ()
-    print('second order qe sheng saved')
+    logging.info('second order qe sheng saved')
 
 
 def save_third_order_matrix(phonons):
@@ -325,7 +326,7 @@ def save_third_order_matrix(phonons):
     file = open ('%s' % filename, 'w+')
     n_in_unit_cell = len (phonons.atoms.numbers)
     n_replicas = phonons.forceconstants.n_replicas
-    third_order = phonons.forceconstants.third_order\
+    third_order = phonons.forceconstants.third\
         .reshape((n_replicas, n_in_unit_cell, 3, n_replicas, n_in_unit_cell, 3, n_replicas, n_in_unit_cell, 3))\
         .todense()
 
@@ -341,10 +342,10 @@ def save_third_order_matrix(phonons):
                         if (np.abs (three_particles_interaction) > 1e-9).any ():
                             block_counter += 1
                             file.write ('\n  ' + str (block_counter))
-                            rep_position = phonons.forceconstants.second_order.list_of_replicas[n_1]
+                            rep_position = phonons.forceconstants.second.list_of_replicas[n_1]
                             file.write ('\n  ' + str (rep_position[0]) + ' ' + str (rep_position[1]) + ' ' + str (
                                 rep_position[2]))
-                            rep_position = phonons.forceconstants.second_order.list_of_replicas[n_2]
+                            rep_position = phonons.forceconstants.second.list_of_replicas[n_2]
                             file.write ('\n  ' + str (rep_position[0]) + ' ' + str (rep_position[1]) + ' ' + str (
                                 rep_position[2]))
                             file.write ('\n  ' + str (i_0 + 1) + ' ' + str (i_1 + 1) + ' ' + str (i_2 + 1))
@@ -362,7 +363,7 @@ def save_third_order_matrix(phonons):
         data = original.read ()
     with open (filename, 'w+') as modified:
         modified.write ('  ' + str (block_counter) + '\n' + data)
-    print('third order sheng saved')
+    logging.info('third order sheng saved')
 
 
 def create_control_file_string(phonons, is_espresso=False):
@@ -409,8 +410,6 @@ def create_control_file_string(phonons, is_espresso=False):
         string += '\tespresso=.false.\n'
     if phonons.is_classic:
         string += '\tclassical=.true.\n'
-
-
     string += '\tnonanalytic=.false.\n'
     string += '\tisotopes=.false.\n'
     string += '&end\n'
