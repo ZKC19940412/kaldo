@@ -3,13 +3,10 @@ kaldo
 Anharmonic Lattice Dynamics
 """
 from opt_einsum import contract
-import ase.units as units
-import tensorflow as tf
-from sparse import COO
 import numpy as np
 from kaldo.controllers.dirac_kernel import lorentz_delta, gaussian_delta, triangular_delta
-from kaldo.helpers.storage import lazy_property, DEFAULT_STORE_FORMATS
-from kaldo.observables.harmonic_with_q import HarmonicWithQ
+from kaldo.helpers.storage import lazy_property
+from kaldo.observables.harmonic_with_q_temp import HarmonicWithQTemp
 from kaldo.helpers.logger import get_logger, log_size
 logging = get_logger()
 
@@ -32,55 +29,28 @@ def calculate_conductivity_per_mode(heat_capacity, velocity, mfp, physical_mode,
     return conductivity_per_mode * 1e22
 
 
-def calculate_diffusivity_dense(omega, flux, diffusivity_bandwidth, physical_mode, alpha, beta, curve, is_diffusivity_including_antiresonant=False):
+def calculate_diffusivity(omega, sij_left, sij_right, diffusivity_bandwidth, physical_mode, curve,
+                          is_diffusivity_including_antiresonant=False,
+                          diffusivity_threshold=None):
     # TODO: cache this
     sigma = 2 * (diffusivity_bandwidth[:, np.newaxis] + diffusivity_bandwidth[np.newaxis, :])
-
+    physical_mode = physical_mode.astype(np.bool)
     delta_energy = omega[:, np.newaxis] - omega[np.newaxis, :]
     kernel = curve(delta_energy, sigma)
+    if diffusivity_threshold is not None:
+        condition = (np.abs(delta_energy) < diffusivity_threshold * 2 * np.pi * diffusivity_bandwidth)
+        kernel[np.invert(condition)] = 0
     if is_diffusivity_including_antiresonant:
         sum_energy = omega[:, np.newaxis] + omega[np.newaxis, :]
         kernel += curve(sum_energy, sigma)
     kernel = kernel * np.pi
     kernel[np.isnan(kernel)] = 0
     mu_unphysical = np.argwhere(np.invert(physical_mode)).T
-    # flux[mu_unphysical, mu_unphysical] = 0
     kernel[:, :] = kernel / omega[:, np.newaxis]
     kernel[:, :] = kernel[:, :] / omega[np.newaxis, :] / 4
     kernel[mu_unphysical, :] = 0
     kernel[:, mu_unphysical] = 0
-    diffusivity = flux[..., alpha] * kernel * flux[..., beta]
-    return diffusivity
-
-
-def calculate_diffusivity_sparse(phonons, s_ij, diffusivity_bandwidth, diffusivity_threshold, curve, is_diffusivity_including_antiresonant=False):
-    # TODO: cache this
-    if is_diffusivity_including_antiresonant:
-        logging.error('is_diffusivity_including_antiresonant not yet implemented for with thresholds and sparse.')
-
-
-    omega = phonons.omega.reshape(phonons.n_k_points, phonons.n_modes)
-
-    physical_mode = phonons.physical_mode.reshape((phonons.n_k_points, phonons.n_modes))
-    physical_mode_2d = physical_mode[:, :, np.newaxis] & \
-                       physical_mode[:, np.newaxis, :]
-    omegas_difference = np.abs(omega[:, :, np.newaxis] - omega[:, np.newaxis, :])
-    condition = (omegas_difference < diffusivity_threshold * 2 * np.pi * diffusivity_bandwidth)
-
-    coords = np.array(np.unravel_index (np.flatnonzero (condition), condition.shape)).T
-    sigma = 2 * (diffusivity_bandwidth[coords[:, 0], coords[:, 1]] + diffusivity_bandwidth[coords[:, 0], coords[:, 2]])
-    delta_energy = omega[coords[:, 0], coords[:, 1]] - omega[coords[:, 0], coords[:, 2]]
-    data = np.pi * curve(delta_energy, sigma)
-    lorentz = COO(coords.T, data, shape=(phonons.n_k_points, phonons.n_modes, phonons.n_modes))
-    prefactor = 1 / (4 * omega[coords[:, 0], coords[:, 1]] * omega[coords[:, 0], coords[:, 2]])
-    prefactor[np.invert(physical_mode_2d[coords[:, 0], coords[:, 1], coords[:, 2]])] = 0
-    prefactor = COO(coords.T, prefactor, shape=(phonons.n_k_points, phonons.n_modes, phonons.n_modes))
-    shape = np.array([phonons.n_k_points, phonons.n_modes, phonons.n_modes, 3, 3])
-    log_size(shape, name='diffusivity')
-    diffusivity = np.zeros(shape)
-    for alpha in range(3):
-        for beta in range(3):
-            diffusivity[..., alpha, beta] = (s_ij[alpha] * prefactor * lorentz * s_ij[beta]).todense()
+    diffusivity = sij_left * kernel * sij_right
     return diffusivity
 
 
